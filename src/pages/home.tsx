@@ -43,8 +43,6 @@ const Home = () => {
    toast(autoplay ? 'Авто-генерация выключена' : 'Включена авто-генерация раз в 10 секунд')
   }
 
-  console.log(phrase);
-
   return (
     <div className='flex flex-col items-center justify-center gap-10'>
       <h1
