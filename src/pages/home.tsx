@@ -31,12 +31,12 @@ const Home = () => {
   return (
     <div className='flex flex-col items-center justify-center gap-10'>
       <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center'>
-        "Маркич - <span>{word}</span>
-        {word.endsWith('мар') ? 'кич"' : 'ркич"'}
+        "Маркич - <span style={{wordBreak: 'break-word'}}>{word}{word.endsWith('мар') ? 'кич"' : 'ркич"'}</span>
+        
       </h1>
       <div className='flex flex-col items-center justify-center gap-2'>
         <Button onClick={() => setWord(getTargetWord())}>Давай еще!</Button>
-        <p className='text-xs text-muted-foreground lg:text-sm'>*или нажмите Enter</p>
+        <p className='text-xs text-muted-foreground lg:text-sm'>* кликни или нажми Enter</p>
       </div>
     </div>
   )
