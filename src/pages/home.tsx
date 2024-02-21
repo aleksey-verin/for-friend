@@ -34,7 +34,7 @@ const Home = () => {
         "Маркич - <span style={{wordBreak: 'break-word'}}>{word}{word.endsWith('мар') ? 'кич"' : 'ркич"'}</span>
         
       </h1>
-      <div className='flex flex-col items-center justify-center gap-2'>
+      <div className='flex flex-col items-center justify-center gap-10'>
         <Button onClick={() => setWord(getTargetWord())}>Давай еще!</Button>
         <p className='text-xs text-muted-foreground lg:text-sm'>* кликни или нажми Enter</p>
       </div>
