@@ -1,42 +1,69 @@
+import { ButtonCopy } from '@/components/button-copy'
+import ButtonRepeat from '@/components/button-repeat'
 import { Button } from '@/components/ui/button'
-import { miniDictionary } from '@/db/mini-db'
-import { getRandomNumber } from '@/lib/lib'
+import { getTargetPhrase } from '@/lib/lib'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
-function getTargetWord() {
-  const words = miniDictionary
-  const countOfWords = words.length
-  const targetIndex = getRandomNumber(countOfWords - 1)
-  const targetWord = words[targetIndex]
-  return targetWord
-}
 const Home = () => {
-  const [word, setWord] = useState(getTargetWord())
+
+  const [phrase, setPhrase] = useState(getTargetPhrase())
+  const [autoplay, setAutoplay] = useState(false);
 
   useEffect(() => {
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
-        setWord(getTargetWord())
+        setPhrase(getTargetPhrase())
       }
     })
     return () => {
       document.removeEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-          setWord(getTargetWord())
+          setPhrase(getTargetPhrase())
         }
       })
     }
   }, [])
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+    if (autoplay) {
+      setPhrase(getTargetPhrase())
+      timer = setInterval(() => {
+        setPhrase(getTargetPhrase())
+      }, 10000)
+    }
+    return () => {
+      clearInterval(timer)
+    }
+  }, [autoplay]);
+
+  const handleClickAutoplay = () => {
+    setAutoplay(!autoplay);
+   toast(autoplay ? 'Авто-генерация выключена' : 'Включена авто-генерация раз в 10 секунд')
+  }
+
+  console.log(phrase);
+
   return (
     <div className='flex flex-col items-center justify-center gap-10'>
-      <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center'>
-        "Маркич - <span style={{wordBreak: 'break-word'}}>{word}{word.endsWith('мар') ? 'кич"' : 'ркич"'}</span>
-        
+      <h1
+        style={{ wordBreak: 'break-word' }}
+        className='scroll-m-20 text-2xl font-extrabold tracking-tight md:text-4xl lg:text-5xl text-center'
+      >
+        "{phrase}"
       </h1>
       <div className='flex flex-col items-center justify-center gap-10'>
-        <Button onClick={() => setWord(getTargetWord())}>Давай еще!</Button>
-        <p className='text-xs text-muted-foreground lg:text-sm'>* кликни или нажми Enter</p>
+        <div className='flex items-center justify-center gap-2'>
+          <ButtonRepeat handleClick={handleClickAutoplay} autoplay={autoplay} />
+          <ButtonCopy text={phrase} />
+          <Button title='Давай еще!' variant={'outline'} onClick={() => setPhrase(getTargetPhrase())}>
+            Давай еще!
+          </Button>
+        </div>
+        <p className='text-xs text-muted-foreground lg:text-sm text-center'>
+          * кликни "Давай еще!" или нажми Enter
+        </p>
       </div>
     </div>
   )
