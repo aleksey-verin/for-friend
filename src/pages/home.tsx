@@ -32,7 +32,7 @@ const Home = () => {
     <div className='flex flex-col items-center justify-center gap-10'>
       <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center'>
         "Маркич - <span>{word}</span>
-        {word.endsWith('мар') ? 'ич"' : 'ркич"'}
+        {word.endsWith('мар') ? 'кич"' : 'ркич"'}
       </h1>
       <div className='flex flex-col items-center justify-center gap-2'>
         <Button onClick={() => setWord(getTargetWord())}>Давай еще!</Button>
