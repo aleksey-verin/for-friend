@@ -1,15 +1,16 @@
 import './App.css'
+import Footer from './components/footer'
 import Header from './components/header'
-import Home from './pages/Home'
+import Home from './pages/home'
 
 function App() {
   return (
     <div className='min-h-screen flex flex-col font-display'>
       <Header />
-      <main className='flex-1'>
+      <main className='max-w-screen-xl flex-1 p-4 m-auto flex items-center justify-center '>
         <Home />
       </main>
-      <footer>footer</footer>
+      <Footer />
     </div>
   )
 }
