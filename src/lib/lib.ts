@@ -26,7 +26,7 @@ export function copyToClipboard(text: string): void {
   if (!navigator.clipboard) {
     unsecuredCopyToClipboard(text)
   } else {
-    console.log('Copying to clipboard')
+    navigator.clipboard.writeText(text);
   }
 }
 
